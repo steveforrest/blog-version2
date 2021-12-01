@@ -4,6 +4,8 @@ from django.http import HttpResponseRedirect
 from .models import Post
 from .forms import CommentForm
 from django.urls import reverse
+from django.contrib import messages
+
 
 
 class PostList(generic.ListView):
@@ -73,8 +75,8 @@ class PostLike(View):
 
         if post.likes.filter(id=request.user.id).exists():
             post.likes.remove(request.user)
-            messages.success(request, "Your like has been added, thank you!")
         else:
             post.likes.add(request.user)
+            messages.success(request, "Your like has been added, thank you!")
 
         return HttpResponseRedirect(reverse('post_detail', args=[slug]))
