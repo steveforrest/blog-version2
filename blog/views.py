@@ -73,6 +73,7 @@ class PostLike(View):
 
         if post.likes.filter(id=request.user.id).exists():
             post.likes.remove(request.user)
+            messages.success(request, "Your like has been added, thank you!")
         else:
             post.likes.add(request.user)
 
